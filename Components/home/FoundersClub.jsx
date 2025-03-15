@@ -3,9 +3,10 @@
 import React, { useState } from "react";
 import { Button } from "@/Components/ui/button";
 import { toast } from "sonner";
-import { Crown, Loader2, Star, Sparkles } from "lucide-react";
+import { Crown, Loader2, Star, Sparkles, Gamepad2, Joystick } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ParallaxProvider, Parallax } from 'react-scroll-parallax';
+import { FaUser, FaGamepad, FaMobileAlt, FaEnvelope, FaLaptop, FaLink } from 'react-icons/fa';
 
 const FoundersClub = () => {
   const initialState = {
@@ -88,6 +89,24 @@ const FoundersClub = () => {
     }
   };
 
+  const getIcon = (field) => {
+    switch (field) {
+      case "name":
+        return <FaUser />;
+      case "sportGame":
+        return <FaGamepad />;
+      case "mobile":
+        return <FaMobileAlt />;
+      case "email":
+        return <FaEnvelope />;
+      case "platform":
+        return <FaLaptop />;
+      case "referral":
+        return <FaLink />;
+      default:
+        return null;
+    }
+  };
   return (
     <ParallaxProvider>
       <div id="join-now-section" className="w-full max-w-6xl mx-auto px-3 sm:px-4">
@@ -105,20 +124,20 @@ const FoundersClub = () => {
               <Star className="h-24 w-24 text-yellow-500 opacity-20" />
             </Parallax>
             <div className="max-w-3xl mx-auto text-center">
-            <motion.div
-              className="mx-auto mb-4 sm:mb-6 flex justify-center"
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Crown className="h-10 w-10 sm:h-12 sm:w-12 text-green-400" />
-            </motion.div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3">
-              Join the Founders' Club
-            </h2>
-            <p className="text-sm sm:text-base text-gray-400 mb-6 sm:mb-8">
-              Be among the first 200 content creators to shape the future of Airena
-            </p>
+              <motion.div
+                className="mx-auto mb-4 sm:mb-6 flex justify-center"
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Crown className="h-10 w-10 sm:h-12 sm:w-12 text-green-400" />
+              </motion.div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3">
+                Join the Founders' Club
+              </h2>
+              <p className="text-sm sm:text-base text-gray-400 mb-6 sm:mb-8">
+                Be among the first 200 content creators to shape the future of Airena
+              </p>
               <motion.form
                 onSubmit={handleSubmit}
                 className="max-w-lg mx-auto text-left"
@@ -129,22 +148,47 @@ const FoundersClub = () => {
                 {Object.keys(initialState).map((field, index) => (
                   <motion.div
                     key={field}
-                    className="mb-3"
+                    className={"mb-3 " + field}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.2, duration: 0.5 }}
                   >
-                    <label htmlFor={field} className="block text-xs sm:text-sm text-gray-400 mb-1">
+                    <label
+                      htmlFor={field}
+                      className="block text-xs sm:text-sm text-gray-400 mb-1"
+                    >
                       {field.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase()).replace("Sport Game", "Sport / Game").trim()}:
                     </label>
-                    <input
-                      type="text"
-                      id={field}
-                      name={field}
-                      value={formData[field]}
-                      onChange={handleChange}
-                      className={`w-full h-9 px-3 bg-transparent border rounded-md focus:ring-2 focus:ring-green-400 transition-transform duration-300 focus:scale-105 ${errors[field] ? "border-red-500" : "border-gray-700"}`}
-                    />
+
+                    {/* Input with icon */}
+                    <div className="relative">
+                      {/* Input Field */}
+                      <input
+                        type="text"
+                        id={field}
+                        name={field}
+                        value={formData[field]}
+                        onChange={handleChange}
+                        style={{
+                          margin: '16px auto',
+                          width: '100%',
+                          height: '40px',
+                          borderRadius: '20px',
+                          borderBottom: '2px solid green',
+                          textAlign: 'center',
+                          color: 'white',
+                          background: 'none',
+                        }}
+                        className={`w-full h-9 px-3 bg-transparent border rounded-md focus:ring-2 focus:ring-green-400 transition-transform duration-300 focus:scale-105 ${errors[field] ? "border-red-500" : "border-gray-700"}`}
+                      />
+
+                      {/* Icon */}
+                      <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                        {getIcon(field)}
+                      </div>
+                    </div>
+
+                    {/* Error message */}
                     {errors[field] && <p className="text-red-500 text-xs mt-1">{errors[field]}</p>}
                   </motion.div>
                 ))}
@@ -167,6 +211,12 @@ const FoundersClub = () => {
                 </div>
               </motion.form>
             </div>
+            <Parallax speed={-10} className="absolute top-150 left-10">
+              <Joystick  className="h-32 w-32 text-yellow-500 opacity-20" />
+            </Parallax>
+            <Parallax speed={15} className="absolute top-150 right-10">
+              <Gamepad2 className="h-24 w-24 text-green-500 opacity-20" />
+            </Parallax>
           </section>
         </motion.div>
       </div>

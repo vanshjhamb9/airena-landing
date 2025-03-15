@@ -7,7 +7,7 @@ const VideoSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center bg-black text-white p-4">
+    <section className="relative w-full my-10 flex items-center justify-center bg-black text-white p-4">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}

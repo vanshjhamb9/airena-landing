@@ -19,7 +19,7 @@ const VideoSlider = () => {
     setCurrentIndex((prev) => (prev - 1 + videos.length) % videos.length);
 
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center bg-black text-white p-4">
+    <section className="relative w-full my-10 flex items-center justify-center bg-black text-white p-4">
       <div className="relative w-full max-w-5xl bg-gray-900 p-3 md:p-4 rounded-xl shadow-2xl overflow-hidden">
         <AnimatePresence mode="wait">
           {isPlaying ? (
